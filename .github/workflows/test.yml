@@ -1,0 +1,20 @@
+name: test
+
+on:
+  push:
+
+jobs:
+  test:
+    name: Test
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        version: ["3.5.0", "3.6.0"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: leafo/gh-actions-lua@v8
+      - uses: leafo/gh-actions-luarocks@v3
+        with:
+          luarocksVersion: ${{ matrix.version }}
+      - run: luarocks --version
+      - run: luarocks make
