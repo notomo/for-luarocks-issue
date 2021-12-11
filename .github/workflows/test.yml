@@ -10,12 +10,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ["3.5.0", "3.6.0"]
+        version: ["3.5.0", "3.6.0", "3.8.0"]
     steps:
       - uses: actions/checkout@v2
+      - run: npm ci
 
-      - run: npm install @actions/exec @actions/tool-cache @actions/io
-      - uses: actions/github-script@v5
+      - name: Install LuaRocks
+        uses: actions/github-script@v5
         env:
           LUAROCKS_VERSION: ${{ matrix.version }}
         with:
@@ -24,6 +25,13 @@ jobs:
             await script(core)
 
       - run: luarocks --version
-      - run: luarocks make
-      - run: where something
+
+      - run: luarocks config
+
+      - run: luarocks make --verbose
+
+      - name: luarocks make (show --no-verbose result)
+        run: luarocks make
+        if: always()
+
       - run: something 1 2

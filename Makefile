@@ -1,3 +1,3 @@
 install:
-	luarocks make
+	luarocks make --verbose
 .PHONY: install

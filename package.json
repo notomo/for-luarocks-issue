@@ -1,0 +1,12 @@
+{
+  "name": "for-luarocks-issue",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "@actions/exec": "*",
+    "@actions/tool-cache": "*",
+    "@actions/io": "*"
+  }
+}
