@@ -8,13 +8,22 @@ jobs:
     name: Test
     runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
         version: ["3.5.0", "3.6.0"]
     steps:
       - uses: actions/checkout@v2
-      - uses: leafo/gh-actions-lua@v8
-      - uses: leafo/gh-actions-luarocks@v3
+
+      - run: npm install @actions/exec @actions/tool-cache @actions/io
+      - uses: actions/github-script@v5
+        env:
+          LUAROCKS_VERSION: ${{ matrix.version }}
         with:
-          luarocksVersion: ${{ matrix.version }}
+          script: |
+            const script = require('./install_luarocks.js')
+            await script(core)
+
       - run: luarocks --version
       - run: luarocks make
+      - run: where something
+      - run: something 1 2
