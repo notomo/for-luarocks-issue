@@ -81,12 +81,12 @@ async function installLua(core) {
   };
 }
 
-async function install(core, LUAROCKS_VERSION, luajit) {
+async function install(core, _, luajit) {
   const installPath = path.join(process.env.USERPROFILE, ".local");
-  const dirName = `luarocks-${LUAROCKS_VERSION}-win32`;
+  const dirName = `luarocks-luarocks-97e1801`;
   const targetPath = path.join(installPath, dirName);
   const zip = await tc.downloadTool(
-    `https://luarocks.org/releases/${dirName}.zip`
+    `https://api.github.com/repos/luarocks/luarocks/zipball/fix-deploy-on-non-wrapped-scripts`
   );
   await io.mkdirP(targetPath);
   await tc.extractZip(zip, installPath);
